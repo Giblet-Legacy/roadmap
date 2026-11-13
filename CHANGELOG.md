@@ -1,5 +1,21 @@
 # CHANGELOG — roadmap
 
+## [Unreleased]
+
+### Good
+
+- Consumers updated to the current entry points: SCP Substrate
+  `serve_v3` (ISO times; v2 broke the field on attested claims), The Legacy
+  `legacy_v5`, and a line for the Voice (`Giblet-Legacy/lllm`).
+
+### Bad
+
+- (none)
+
+### Ugly
+
+- (none)
+
 ## [v1.1.0] — 2026-11-13
 
 ### Good
