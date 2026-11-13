@@ -4,6 +4,12 @@
 
 ### Good
 
+- Frozen 2026-11-13 (James: "freeze commmit and push"; laptop run, S24 to confirm): P9 substrate_v4
+  4.0.0 (entities, subjects), P13 datacube_v3 3.0.0 (polarity-aware gate),
+  Cockpit forge_cli_v1_3 1.3.0, Weaver weaver_v1_3 1.3.0, LLLM Voice
+  0.1.2, SCP Substrate serve_v4 4.0.0, The Legacy legacy_v7 1.3.0.
+  Consumers updated to those entry points. The LLLM engine is reached
+  through LLLM_CLI (its README's shell function is invisible to Python).
 - Consumers updated to the current entry points: SCP Substrate
   `serve_v3` (ISO times; v2 broke the field on attested claims), The Legacy
   `legacy_v5`, and a line for the Voice (`Giblet-Legacy/lllm`).

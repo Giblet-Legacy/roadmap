@@ -74,15 +74,15 @@ P2 ─► P12 Rules ─► P13 DataCube ◄─ P14
 P14, P2, P4 ─► P15 HAL
 
 Consumers
-  Cockpit (forge_cli_v1_2)  writes: P13 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
-  SCP Substrate (serve_v3)  reads P9 (verified), ISO times            :8085
-  Weaver (weaver_v1_2)      reads P9, P14 V3 (days), LLLM
+  Cockpit (forge_cli_v1_3)  writes: P13 v3 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
+  SCP Substrate (serve_v4)  reads P9 (verified), keyword clusters     :8085
+  Weaver (weaver_v1_3)      reads P9, P14 V3 (days); briefing from claims, LLLM line
   Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3
   SC-OS (peer_v2, nerves)   P1, P2, P7; pins at $FORGE_HOME/sc-os/
-  The Legacy (legacy_v6)    one page: health, Weaver, Field, Cockpit,  :8080
+  The Legacy (legacy_v7)    one page: health, Weaver, Field, Cockpit,  :8080
                             Echo preview -> inbox draft, Nerves, LLLM
   LLLM (JamesTheGiblet/lllm) n-gram model; builds anchored in the ledger by the Cockpit
-  The Voice (Giblet-Legacy/lllm) answers from polarised FACT/COUNTER/CONTEXT claims, via the Legacy
+  The Voice (Giblet-Legacy/lllm, lllm_v0_1_2) speaks claims' signed text, via the Legacy
 ```
 
 Shared files under `$FORGE_HOME` (default `~/.forge`): `forge.db` (P9),
