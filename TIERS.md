@@ -10,6 +10,11 @@ These are the applications that use the primitive layers to do work.
 *   **`scp-substrate` (The Memory):** The 4D semantic graph (Entities, Subjects, Claims, Evidence).
 *   **`The Legacy` (The Final GUI):** The ultimate projection of the self. The connector that unifies all the work.
 
+### Tier 1 additions (2026-11-13)
+*   **`the-weaver` (The Compensator):** Morning Briefing from fading UNKNOWN claims (P9, P14, LLLM).
+*   **`the-echo` (The Mirror):** Read-only "what if I committed this claim?" simulator (P9, P12, P13, P14).
+*   **`forge-queue`:** A standalone stdlib job queue (a timed challenge build). Not part of the stack and depends on no layer.
+
 ## Tier 2: The Spine Stages
 Every artefact in the Forge Stack is produced by exactly one of five stages. The symmetry is enforced, not decorative.
 

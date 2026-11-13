@@ -31,6 +31,66 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 
 Each layer has its own test suite. Run them in dependency order. Total: 731+ passing tests across the stack.
 
+## Current layers (2026-11-13 review)
+
+"COMPLETE" above means every primitive's **v1 is frozen**. Each layer
+has since grown stricter layers above v1 (Immutable Rule: add a layer,
+never rewrite). New code imports the module in the middle column.
+
+| Layer | Import | State |
+| :--- | :--- | :--- |
+| P1 | `envelope_v2` | frozen 2.0.0 |
+| P2 | `sign_v2` | frozen 2.0.0 |
+| P3 | `freeze_v2` | frozen 2.0.0 |
+| P4 | `ledger_v2` | frozen 2.0.0 (2026-11-13) |
+| P5 | `genesis_v3` | frozen 3.0.0 |
+| P6 | `canon_verify_v2` | frozen 2.0.0 |
+| P7 | `record_v2` | frozen 2.0.0 |
+| P8 | `store_v2_1` | frozen 2.1.0 |
+| P9 | `substrate_v3` | frozen 3.0.0 |
+| P10 | `weight_v2` | 1.1.0 |
+| P11 | `trust_v2` | 1.1.0 |
+| P12 | `rules_v3` | frozen 3.0.0 |
+| P13 | `datacube_v2` | frozen 2.0.0 |
+| P14 | `leighton_engine_v3` | frozen 1.2.0 |
+| P15 | `hal_v2` | 1.1.0 |
+
+All frozen on James's sign-off ("freeze all", 2026-11-13). The S24
+runs of the layers frozen that day are still to be confirmed.
+
+## Dependency graph
+
+Arrows read "is used by". Every layer also uses P1.
+
+```
+P1 Envelope ─► P2 Sign ─► P3 Freeze
+P1 ─► P4 Ledger ─► P5 Genesis
+P4 ─► P8 Store
+P6 Canon Verify            (standalone: imports no layer; checks P4's files)
+P2 ─► P7 Record
+P2 ─► P9 Substrate
+P10 Weight ─► P11 Trust ─► P14 Leighton Engine
+P2 ─► P12 Rules ─► P13 DataCube ◄─ P14
+P14, P2, P4 ─► P15 HAL
+
+Consumers
+  Cockpit (forge_cli_v1_1)  writes: P13 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
+  SCP Substrate (serve_v2)  reads P9 (verified)                      :8085
+  Weaver (weaver_v1_1)      reads P9, P14 V3 (days), LLLM
+  Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3
+  SC-OS (peer_v2, nerves)   P1, P2, P7; pins at $FORGE_HOME/sc-os/
+  The Legacy (legacy_v3)    Cockpit health, Weaver, SC-OS nerves      :8080
+```
+
+Shared files under `$FORGE_HOME` (default `~/.forge`): `forge.db` (P9),
+`ledger.jsonl` (P4, LF only), `store.db` (P8 mirror), `key.pem` (P7),
+`sc-os/pins.sc.json` (SC-OS).
+
+## Test totals (2026-11-13, laptop)
+
+957 passing: 778 across the 15 primitive repos, 179 across the six
+consumers. Run `python -m pytest -q` in each repo.
+
 ## The Legacy
 
 "I wanted it. So I forged it. Now forge yours."
