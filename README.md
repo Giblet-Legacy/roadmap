@@ -79,7 +79,7 @@ Consumers
   Weaver (weaver_v1_2)      reads P9, P14 V3 (days), LLLM
   Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3
   SC-OS (peer_v2, nerves)   P1, P2, P7; pins at $FORGE_HOME/sc-os/
-  The Legacy (legacy_v5)    one page: health, Weaver, Field, Cockpit,  :8080
+  The Legacy (legacy_v6)    one page: health, Weaver, Field, Cockpit,  :8080
                             Echo preview -> inbox draft, Nerves, LLLM
   LLLM (JamesTheGiblet/lllm) n-gram model; builds anchored in the ledger by the Cockpit
   The Voice (Giblet-Legacy/lllm) answers from polarised FACT/COUNTER/CONTEXT claims, via the Legacy

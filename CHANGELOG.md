@@ -7,6 +7,8 @@
 - Consumers updated to the current entry points: SCP Substrate
   `serve_v3` (ISO times; v2 broke the field on attested claims), The Legacy
   `legacy_v5`, and a line for the Voice (`Giblet-Legacy/lllm`).
+- The Legacy's entry point is now `legacy_v6` (frozen 1.2.0); SCP Substrate
+  v3 frozen 3.0.0. S24 runs confirmed on the S24 by James, 2026-11-13.
 
 ### Bad
 
