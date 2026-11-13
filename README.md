@@ -55,8 +55,8 @@ never rewrite). New code imports the module in the middle column.
 | P14 | `leighton_engine_v3` | frozen 1.2.0 |
 | P15 | `hal_v2` | 1.1.0 |
 
-All frozen on James's sign-off ("freeze all", 2026-11-13). The S24
-runs of the layers frozen that day are still to be confirmed.
+All frozen on James's sign-off ("freeze all", 2026-11-13). Confirmed on
+the S24 by James the same day.
 
 ## Dependency graph
 
