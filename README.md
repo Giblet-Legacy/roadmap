@@ -74,12 +74,14 @@ P2 ─► P12 Rules ─► P13 DataCube ◄─ P14
 P14, P2, P4 ─► P15 HAL
 
 Consumers
-  Cockpit (forge_cli_v1_1)  writes: P13 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
+  Cockpit (forge_cli_v1_2)  writes: P13 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
   SCP Substrate (serve_v2)  reads P9 (verified)                      :8085
-  Weaver (weaver_v1_1)      reads P9, P14 V3 (days), LLLM
+  Weaver (weaver_v1_2)      reads P9, P14 V3 (days), LLLM
   Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3
   SC-OS (peer_v2, nerves)   P1, P2, P7; pins at $FORGE_HOME/sc-os/
-  The Legacy (legacy_v3)    Cockpit health, Weaver, SC-OS nerves      :8080
+  The Legacy (legacy_v4)    one page: health, Weaver, Field, Cockpit,  :8080
+                            Echo preview -> inbox draft, Nerves, LLLM
+  LLLM (JamesTheGiblet/lllm) n-gram model; builds anchored in the ledger by the Cockpit
 ```
 
 Shared files under `$FORGE_HOME` (default `~/.forge`): `forge.db` (P9),
