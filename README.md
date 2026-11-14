@@ -27,7 +27,7 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 | **P14** | [`leighton-engine-layer`](https://github.com/Giblet-Legacy/leighton-engine-layer) | Canonical λ computation |
 | **P15** | [`hal-layer`](https://github.com/Giblet-Legacy/hal-layer) | Human Accountability Layer |
 
-### Added 2026-11-14 (in build, not signed off)
+### Added 2026-11-14 (frozen 1.0.0, signed off by James)
 
 From the foundation, [JamesTheGiblet/the-full-stack](https://github.com/JamesTheGiblet/the-full-stack)
 (`forge_core`, `master_mediator`), on James's delegation.
@@ -38,8 +38,8 @@ From the foundation, [JamesTheGiblet/the-full-stack](https://github.com/JamesThe
 | **P17** | [`mediator-layer`](https://github.com/Giblet-Legacy/mediator-layer) | Master Mediator: field maturity from consumer digests; unsigned spine-update proposals for HAL |
 
 Each carries a primitive capsule (`sc/p16-time-v1.sc.json`,
-`sc/p17-mediator-v1.sc.json`) pinning its SPEC, unsigned until James
-seals it with `forge-time/seal_capsule.py` (P3 Freeze v2, his key).
+`sc/p17-mediator-v1.sc.json`) pinning its SPEC, sealed by James on 2026-11-14
+with `forge-time/seal_capsule.py` (P3 Freeze v2, his key).
 
 ## Verifying the Stack
 
@@ -68,8 +68,8 @@ never rewrite). New code imports the module in the middle column.
 | P13 | `datacube_v2` | frozen 2.0.0 |
 | P14 | `leighton_engine_v3` | frozen 1.2.0 |
 | P15 | `hal_v2` | 1.1.0 |
-| P16 | `forge_time` | 0.0.0-dev (2026-11-14) |
-| P17 | `mediator` | 0.0.0-dev (2026-11-14) |
+| P16 | `forge_time` | frozen 1.0.0 (2026-11-14) |
+| P17 | `mediator` | frozen 1.0.0 (2026-11-14) |
 
 P1–P15: all frozen on James's sign-off ("freeze all", 2026-11-13). Confirmed on
 the S24 by James the same day.
