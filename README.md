@@ -6,6 +6,7 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 
 - [`README.md`](README.md) — this file (overview, primitive layers, dependency graph)
 - [`TIERS.md`](TIERS.md) — the four architectural tiers (Consumers, Spine, Primitives, Hardware)
+- [`STATUS.md`](STATUS.md) — dated status report (what is frozen, signed and tested)
 
 ## The 15 Primitive Layers (Tier 3 — COMPLETE)
 

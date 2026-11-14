@@ -4,6 +4,9 @@
 
 ### Good
 
+- `STATUS.md`: dated status report (2026-11-14), corrected from a phone draft: test
+  counts per surface, only v1 of every primitive frozen, P16/P17 the only sealed
+  capsules, the foundation listed, P17 grouped with HAL.
 - Frozen 2026-11-13 (James: "freeze commmit and push"; laptop run, S24 to confirm): P9 substrate_v4
   4.0.0 (entities, subjects), P13 datacube_v3 3.0.0 (polarity-aware gate),
   Cockpit forge_cli_v1_3 1.3.0, Weaver weaver_v1_3 1.3.0, LLLM Voice
