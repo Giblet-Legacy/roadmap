@@ -92,7 +92,9 @@ P14, P2, P4 ─► P15 HAL
 P16 Time ─► P17 Mediator   (P16 imports no layer; P17 proposes to the owner via P15, never merges)
 
 Consumers
-  Cockpit (forge_cli_v1_3)  writes: P13 v3 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
+  Cockpit (forge_cli_v1_6)  writes: P13 v3 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9;
+                            `answer` supersedes a question (P9); `imagine` dreams via local
+                            Ollama gemma2:2b, UNKNOWN face only
   SCP Substrate (serve_v4)  reads P9 (verified), keyword clusters     :8085
   Weaver (weaver_v1_3)      reads P9, P14 V3 (days); briefing from claims, LLLM line
   Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3

@@ -4,6 +4,8 @@
 
 ### Good
 
+- Cockpit entry point now forge_cli_v1_6 (frozen 1.6.0, 2026-11-14): `forge answer`
+  (v1.5) and `forge imagine` / `forge dreams` (v1.6, local Ollama for dreams only).
 - `STATUS.md`: dated status report (2026-11-14), corrected from a phone draft: test
   counts per surface, only v1 of every primitive frozen, P16/P17 the only sealed
   capsules, the foundation listed, P17 grouped with HAL.
