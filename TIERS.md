@@ -28,6 +28,10 @@ Every artefact in the Forge Stack is produced by exactly one of five stages. The
 The immutable physics of the stack. 15 layers, over 700 passing tests.
 *See the main `README.md` for the full list and dependency graph.*
 
+### Tier 3 additions (2026-11-14, in build)
+*   **P16 Time (`forge-time`):** the one signed timestamp format and the scp_id rule, from the foundation's `forge_core`.
+*   **P17 Mediator (`mediator-layer`):** the foundation's Master Mediator. Reads consumer digests, tiers each field's maturity, and writes unsigned spine-update proposals for HAL. It is how the stack grows on its own while every change stays a human decision.
+
 ## Tier 4: Physical Environment
 The hardware the stack runs on.
 *   **The Gate:** Pi 3B (internet-facing).

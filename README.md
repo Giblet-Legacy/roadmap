@@ -27,6 +27,20 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 | **P14** | [`leighton-engine-layer`](https://github.com/Giblet-Legacy/leighton-engine-layer) | Canonical λ computation |
 | **P15** | [`hal-layer`](https://github.com/Giblet-Legacy/hal-layer) | Human Accountability Layer |
 
+### Added 2026-11-14 (in build, not signed off)
+
+From the foundation, [JamesTheGiblet/the-full-stack](https://github.com/JamesTheGiblet/the-full-stack)
+(`forge_core`, `master_mediator`), on James's delegation.
+
+| Layer | Repository | Purpose |
+| :--- | :--- | :--- |
+| **P16** | [`forge-time`](https://github.com/Giblet-Legacy/forge-time) | The one signed timestamp format (ISO 8601 UTC, `Z`) and the scp_id rule, whole-string |
+| **P17** | [`mediator-layer`](https://github.com/Giblet-Legacy/mediator-layer) | Master Mediator: field maturity from consumer digests; unsigned spine-update proposals for HAL |
+
+Each carries a primitive capsule (`sc/p16-time-v1.sc.json`,
+`sc/p17-mediator-v1.sc.json`) pinning its SPEC, unsigned until James
+seals it with `forge-time/seal_capsule.py` (P3 Freeze v2, his key).
+
 ## Verifying the Stack
 
 Each layer has its own test suite. Run them in dependency order. Total: 731+ passing tests across the stack.
@@ -54,8 +68,10 @@ never rewrite). New code imports the module in the middle column.
 | P13 | `datacube_v2` | frozen 2.0.0 |
 | P14 | `leighton_engine_v3` | frozen 1.2.0 |
 | P15 | `hal_v2` | 1.1.0 |
+| P16 | `forge_time` | 0.0.0-dev (2026-11-14) |
+| P17 | `mediator` | 0.0.0-dev (2026-11-14) |
 
-All frozen on James's sign-off ("freeze all", 2026-11-13). Confirmed on
+P1–P15: all frozen on James's sign-off ("freeze all", 2026-11-13). Confirmed on
 the S24 by James the same day.
 
 ## Dependency graph
@@ -72,6 +88,7 @@ P2 ─► P9 Substrate
 P10 Weight ─► P11 Trust ─► P14 Leighton Engine
 P2 ─► P12 Rules ─► P13 DataCube ◄─ P14
 P14, P2, P4 ─► P15 HAL
+P16 Time ─► P17 Mediator   (P16 imports no layer; P17 proposes to the owner via P15, never merges)
 
 Consumers
   Cockpit (forge_cli_v1_3)  writes: P13 v3 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9
