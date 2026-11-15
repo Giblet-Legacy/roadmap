@@ -8,6 +8,31 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-15
+
+Only the foundation and the Saboteur were checked on this date; every
+other line of 2026-11-14 below is unchanged and not re-checked.
+
+### The foundation
+
+`forge-stack-governance-v7` is the governance root: it adds
+`number_encoding` (no fractional JSON numbers) and `hal_score_freshness`
+(authoriser scores at most 30 days old). The live spine capsules are
+pinned by `forge-stack/manifest-v11`. Hardening 6.2 to 6.4 added six
+layers, frozen today at 1.0.0: `sign_v2`, `sign_v3`, `sign_capsule`,
+`ledger_v2`, `hal_v3`, `freeze_v3`. 70/70 tests; `sign_v3 --verify`,
+`freeze_v3 --check` and `ledger_v2 verify` all green, the first time
+the root checks have been clean since August.
+
+### The Saboteur
+
+[JamesTheGiblet/the-saboteur](https://github.com/JamesTheGiblet/the-saboteur)
+v2, frozen at 0.3.3: 15 live threats, PASS 15 / FAIL 0 / UGLY 0 against
+the foundation. Five threats against the original tools (whose gaps
+stay, by the Immutable Rule) are retired to `threats_v2/retired/`.
+
+Not yet checked: the S24 run of either.
+
 ## 2026-11-14
 
 ### The foundation
