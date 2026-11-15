@@ -4,6 +4,12 @@
 
 ### Good
 
+- `VPS.md` (2026-11-15): the VPS verification node. A locked `forge` user
+  runs the foundation's tests, `sign_v3`, `freeze_v3`, `ledger_v2` and the
+  Saboteur every 6 hours, GREEN or RED; no signing keys on the machine,
+  ccemk2 read through a read-only deploy key. First run GREEN. Includes
+  the rebuild steps, the setup script, and what went wrong on the day.
+  No addresses or ids: the repository is public.
 - Cockpit entry point now forge_cli_v1_6 (frozen 1.6.0, 2026-11-14): `forge answer`
   (v1.5) and `forge imagine` / `forge dreams` (v1.6, local Ollama for dreams only).
 - `STATUS.md`: dated status report (2026-11-14), corrected from a phone draft: test
