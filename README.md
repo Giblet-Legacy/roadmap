@@ -7,7 +7,7 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 - [`README.md`](README.md) — this file (overview, primitive layers, dependency graph)
 - [`TIERS.md`](TIERS.md) — the four architectural tiers (Consumers, Spine, Primitives, Hardware)
 - [`STATUS.md`](STATUS.md) — dated status report (what is frozen, signed and tested)
-- [`VPS.md`](VPS.md) — the VPS verification node (what it checks, how to read it, how to rebuild it)
+- [`VPS.md`](VPS.md) — the VPS: the verification node and the read-only Legacy (what runs, how to update it, how to rebuild it)
 
 ## The 15 Primitive Layers (Tier 3 — COMPLETE)
 
@@ -96,11 +96,11 @@ Consumers
   Cockpit (forge_cli_v1_6)  writes: P13 v3 gate → P2 → P9 → P5/P4 → P8; HAL via P15 → P4 + P9;
                             `answer` supersedes a question (P9); `imagine` dreams via local
                             Ollama gemma2:2b, UNKNOWN face only
-  SCP Substrate (serve_v4)  reads P9 (verified), keyword clusters     :8085
+  SCP Substrate (serve_v8)  reads P9 (verified); you at the centre    :8085
   Weaver (weaver_v1_3)      reads P9, P14 V3 (days); briefing from claims, LLLM line
   Echo (echo_v1_1)          reads P9, P12 v3, P13, P14 V3
   SC-OS (peer_v2, nerves)   P1, P2, P7; pins at $FORGE_HOME/sc-os/
-  The Legacy (legacy_v7)    one page: health, Weaver, Field, Cockpit,  :8080
+  The Legacy (legacy_v11)   one page: health, Weaver, Field, Cockpit,  :8080
                             Echo preview -> inbox draft, Nerves, LLLM
   LLLM (JamesTheGiblet/lllm) n-gram model; builds anchored in the ledger by the Cockpit
   The Voice (Giblet-Legacy/lllm, lllm_v0_1_2) speaks claims' signed text, via the Legacy

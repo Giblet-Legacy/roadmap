@@ -4,6 +4,14 @@
 
 ### Good
 
+- The Legacy frozen 1.9.0 (2026-11-16): legacy_v11 + boot_v6 (one link) and
+  boot_v5 (1.8.0). README's consumer list now names legacy_v11 and serve_v8
+  (serve_v8 not frozen yet).
+- `VPS.md` (2026-11-16): the read-only Legacy on the VPS. One private link
+  (the Legacy at `/`, the Field at `/field/`, Tailscale only), the laptop's
+  data sync (never `key.pem`), its rules, layout and rebuild; the day's
+  lessons; all three VPS scripts as appendices A-C, identical to the
+  laptop copies in `Documents\forge-vps\`.
 - `VPS.md` (2026-11-15): the VPS verification node. A locked `forge` user
   runs the foundation's tests, `sign_v3`, `freeze_v3`, `ledger_v2` and the
   Saboteur every 6 hours, GREEN or RED; no signing keys on the machine,
