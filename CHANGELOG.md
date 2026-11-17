@@ -4,6 +4,14 @@
 
 ### Good
 
+- `ABSORB.md` (2026-11-17): the plan for absorbing the-full-stack into the
+  Legacy (James: "the-full-stack was only ever given as context to legacy's
+  origins; we need to absorb the best bits and remove the rest"). His
+  choices: absorbed documents re-signed with his Forge key, each recording
+  its origin; a new constitution repository in the organisation; the
+  consumers decided one by one (ccemk2 transferred and kept private,
+  Nova-bot its own repository, giblets-forge into the constitution, the
+  rest archived). Seven steps, each on his word; nothing deleted.
 - The Legacy frozen 1.9.0 (2026-11-16): legacy_v11 + boot_v6 (one link) and
   boot_v5 (1.8.0). README's consumer list now names legacy_v11 and serve_v8
   (serve_v8 not frozen yet).
