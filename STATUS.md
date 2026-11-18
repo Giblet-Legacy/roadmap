@@ -8,6 +8,24 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-18 (later): frozen, and files named for their version
+
+James: "freeze", and "if you look at all the _v versions we have there
+all over the place we need consistency" (he chose name = version;
+`NAMING.md`). Frozen today, each renamed to its version first:
+
+- keystone_gate 1.1.0 (`mediator/digest_v1_1.py`), 65/65.
+- forge-time 1.0.1 (`SPEC_V1_0_1.md`), 9/9; capsule `sc/p16-time-v2.sc.json` unsigned, for James.
+- mediator-layer 1.1.0 (`mediator_v1_1.py`, `SPEC_V1_1.md`), 19/19; capsule `sc/p17-mediator-v2.sc.json` unsigned, for James.
+- the-saboteur 0.4.0 (`saboteur_v0_4.py`), 18/18.
+- explorer-d334-forge 1.8.0 (`forge_cli_v1_8.py`: drafts in the order written, a bug the VPS check found), 83/83.
+- the-legacy 1.11.0 (`legacy_v1_11.py`, `boot_v1_11.py`: drafts through Cockpit 1.8.0), 78/79 (Q18's race, passes alone).
+
+VPS: check v2 verifies the 26 Legacy repositories (first two runs RED on
+fresh-clone setup gaps and the Cockpit order bug, all fixed). run-latest
+v2 picks the Legacy boot by header version, so `boot_v1_11.py` is found;
+it is written, not yet run on the VPS. Not checked on this date: the S24.
+
 ## 2026-11-18
 
 ### the-full-stack is reference only

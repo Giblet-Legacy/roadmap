@@ -231,12 +231,25 @@ A) verify the-full-stack. They are kept as history. `forge_check_v2.sh`
 - `/srv/forge/the-full-stack` and the ccemk2 deploy key are left in place
   but no longer used. Removing them is James's call.
 
-The Saboteur only runs its own tests until `threats_v3/` holds threats
+The Saboteur only runs its own tests until `threats_v0_4/` holds threats
 against the Legacy layers. First run on the VPS, 2026-11-18: RED, 24 of 26 suites green. Both
 failures were fresh-clone setup gaps, not Legacy faults: keystone_gate's
 build_loop needs `pyyaml`, and lllm's `fixture/forge.db` is git-ignored
 and has to be built (`fixture/build_fixture.py`). The script now does
 both; rerun it.
+
+## run-latest v2: the Legacy boot by version (2026-11-18)
+
+run-latest (Appendix B / vps_auto.sh) ran the highest `boot_vN.py` with a
+plain number, and counted any header `Version:` without `-dev` as frozen.
+With files named for their version (`NAMING.md`), `boot_v1_11.py` would
+never be found, and an unfrozen boot without `-dev` could have been run.
+`vps_run_latest_v2.sh` (Appendix E, laptop copy in `Documents/forge-vps/`)
+replaces it. It runs the boot whose header `Version:` is the highest that
+is not above the-legacy's `VERSION` file, and VERSION only advances on a
+freeze. The old script stays as `/srv/legacy/run-latest.v1`. Checked on
+the laptop against the real files: VERSION 1.11.0 picks `boot_v1_11.py`,
+and 1.10.0 picks `boot_v7.py`. State: **written, not yet run on the VPS.**
 
 ## Not done yet
 
@@ -699,7 +712,7 @@ run() {  # run NAME DIR CMD...
   for r in $REPOS; do echo "$r $(git -C "src/$r" rev-parse --short HEAD)"; done
   run "build lllm fixture" src/lllm python fixture/build_fixture.py  # forge.db is git-ignored; a fresh clone builds it
   for r in $REPOS; do run "tests $r" "src/$r" timeout 600 python -m pytest -q -p no:cacheprovider; done
-  echo "Saboteur: threats_v3/ is empty, so no attack run yet (its own tests ran above)."
+  echo "Saboteur: threats_v0_4/ is empty, so no attack run yet (its own tests ran above)."
 } >"$log" 2>&1
 status=GREEN; [ "$fail" = 1 ] && status=RED
 echo "$(date -u +%FT%TZ) $status $log" >> logs/history
@@ -726,4 +739,56 @@ sudo systemctl daemon-reload
 say "4. first run"
 if sudo systemctl start forge-check.service; then echo GREEN; else echo "RED (see: sudo cat $HOME_DIR/logs/latest)"; fi
 tail -1 "$HOME_DIR/logs/history" 2>/dev/null || sudo tail -1 "$HOME_DIR/logs/history"
+```
+
+## Appendix E: vps_run_latest_v2.sh
+
+Written 2026-11-18. Copy it to the VPS and run it once as james.
+
+```bash
+#!/usr/bin/env bash
+# vps_run_latest_v2.sh — teach the read-only Legacy to find a frozen boot by its version, not its file name.
+#
+# Function:
+#     Run once, as james (sudo), on the VPS. run-latest (vps_auto.sh) ran
+#     the highest boot_vN.py with a plain number, so a boot named for its
+#     version (boot_v1_11.py, roadmap NAMING.md, 2026-11-18) was never
+#     seen. run-latest v2 reads each boot*.py header "Version:" and runs
+#     the highest one that is not -dev and not above the-legacy's VERSION
+#     file. VERSION only advances on a freeze, so an unfrozen boot is
+#     never run, whatever it is called.
+#     The old script is kept as /srv/legacy/run-latest.v1. Then the
+#     service is restarted and the chosen boot is shown.
+#
+#     Usage: scp vps_run_latest_v2.sh forge: && ssh -t forge 'bash vps_run_latest_v2.sh'
+set -euo pipefail
+BASE=/srv/legacy
+
+[ -f "$BASE/run-latest.v1" ] || sudo cp -p "$BASE/run-latest" "$BASE/run-latest.v1"
+sudo tee "$BASE/run-latest" >/dev/null <<'EOF'
+#!/usr/bin/env bash
+# run-latest v2 — exec the-legacy boot*.py with the highest header Version that is
+# not -dev and not above VERSION (VERSION advances only on a freeze). 2026-11-18.
+set -euo pipefail
+cd /srv/legacy/src/the-legacy
+frozen=$(grep -v '^#' VERSION | grep -v '^[[:space:]]*$' | tail -1 | tr -d '[:space:]')
+best=""; bestv=""
+for f in boot.py boot_v*.py; do
+  [ -f "$f" ] || continue
+  v=$(grep -m1 '^Version:' "$f" | awk '{print $2}' || true)
+  [[ "$v" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || continue          # skips -dev and anything odd
+  [ "$(printf '%s\n%s\n' "$v" "$frozen" | sort -V | tail -1)" = "$frozen" ] || continue   # not above VERSION
+  if [ -z "$bestv" ] || [ "$(printf '%s\n%s\n' "$v" "$bestv" | sort -V | tail -1)" = "$v" ]; then
+    best=$f; bestv=$v
+  fi
+done
+[ -n "$best" ] || best=boot.py
+echo "run-latest: $best ($bestv; VERSION $frozen)"
+exec /srv/legacy/venv/bin/python "/srv/legacy/src/the-legacy/$best" --host 127.0.0.1 --port 8080 --field-port 8085
+EOF
+sudo chown root:root "$BASE/run-latest" && sudo chmod 755 "$BASE/run-latest"
+
+sudo legacy-refresh --force
+sleep 5
+sudo journalctl -u legacy-field -n 30 --no-pager | grep -m1 "run-latest:" || sudo systemctl status legacy-field --no-pager | head -5
 ```

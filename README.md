@@ -7,6 +7,7 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 - [`README.md`](README.md) — this file (overview, primitive layers, dependency graph)
 - [`TIERS.md`](TIERS.md) — the four architectural tiers (Consumers, Spine, Primitives, Hardware)
 - [`STATUS.md`](STATUS.md) — dated status report (what is frozen, signed and tested)
+- [`NAMING.md`](NAMING.md) — the one naming rule: a file says its version (`sign_v2` = 2.0.0, `forge_cli_v1_8` = 1.8.0), and a map of the frozen files that predate it
 - [`ABSORB_V2.md`](ABSORB_V2.md) — the-full-stack is reference only: ties removed, archived as the ancestor (replaces `ABSORB.md`)
 - [`VPS.md`](VPS.md) — the VPS: the verification node and the read-only Legacy (what runs, how to update it, how to rebuild it)
 

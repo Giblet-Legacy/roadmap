@@ -40,19 +40,19 @@ So, from ABSORB.md:
 
 | # | Step | State |
 |---|---|---|
-| 1 | keystone_gate: drop `forge_core` | Done: 1.1.0, `mediator/digest_v2.py`, 1.0.0 files in `archive/1.0.0/` |
-| 2 | forge-time: drop the foundation agreement test | Done: 1.0.1, `SPEC_V1_0_1.md` |
-| 3 | mediator-layer: drop `--foundation` and its governance | Done: 1.1.0, `SPEC_V2.md`, `mediator_v2.py` |
-| 4 | the-saboteur: no default target, the-full-stack refused | Done: 0.4.0-dev, `SPEC_V3.md`, `saboteur_v3.py`; `threats_v3/` empty |
+| 1 | keystone_gate: drop `forge_core` | Frozen 1.1.0: `mediator/digest_v1_1.py`, 1.0.0 files in `archive/1.0.0/` |
+| 2 | forge-time: drop the foundation agreement test | Frozen 1.0.1: `SPEC_V1_0_1.md`; capsule `p16-time-v2` for James to seal |
+| 3 | mediator-layer: drop `--foundation` and its governance | Frozen 1.1.0: `SPEC_V1_1.md`, `mediator_v1_1.py`; capsule `p17-mediator-v2` for James to seal |
+| 4 | the-saboteur: no default target, the-full-stack refused | Frozen 0.4.0: `SPEC_V0_4.md`, `saboteur_v0_4.py`; `threats_v0_4/` empty |
 | 5 | This roadmap: ABSORB.md replaced by this file | Done |
-| 6 | VPS: stop verifying the-full-stack | See VPS.md |
-| 7 | Archive the-full-stack on GitHub (read-only, kept); its README kept as the ancestor document, `the-legacy/docs/ancestor-the-full-stack.md` | See below |
+| 6 | VPS: stop verifying the-full-stack | Done: check v2 runs the 26 Legacy suites (VPS.md) |
+| 7 | Archive the-full-stack on GitHub (read-only, kept); its README kept as the ancestor document, `the-legacy/docs/ancestor-the-full-stack.md` | Done: archived 2026-11-18; ancestor doc in the-legacy |
 
-None of 1–4 is frozen. Each waits for James to freeze it.
+1–4 frozen 2026-11-18 (James: "freeze"); files renamed to their version first (NAMING.md).
 
 ## Left open
 
-- **Saboteur threats against the Legacy's own layers** (`threats_v3/`).
+- **Saboteur threats against the Legacy's own layers** (`threats_v0_4/`).
   Until they exist, nothing attacks the Legacy.
 - **Signed capsules that name forge-stack governance** in `inherits`
   (about 35 across the layers) stay as signed. They are history, and
