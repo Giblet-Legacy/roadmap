@@ -232,8 +232,11 @@ A) verify the-full-stack. They are kept as history. `forge_check_v2.sh`
   but no longer used. Removing them is James's call.
 
 The Saboteur only runs its own tests until `threats_v3/` holds threats
-against the Legacy layers. State: **written, not yet run on the VPS.**
-On the laptop, 2026-11-18, all 26 suites pass.
+against the Legacy layers. First run on the VPS, 2026-11-18: RED, 24 of 26 suites green. Both
+failures were fresh-clone setup gaps, not Legacy faults: keystone_gate's
+build_loop needs `pyyaml`, and lllm's `fixture/forge.db` is git-ignored
+and has to be built (`fixture/build_fixture.py`). The script now does
+both; rerun it.
 
 ## Not done yet
 
@@ -620,7 +623,7 @@ if __name__ == "__main__":
 
 ## Appendix D: forge_check_v2.sh
 
-Written 2026-11-18. Copy it to the VPS and run it once as james.
+Written 2026-11-18. Copy it to the VPS and run it once as james (rerunnable).
 
 ```bash
 #!/usr/bin/env bash
@@ -640,6 +643,10 @@ Written 2026-11-18. Copy it to the VPS and run it once as james.
 #       3. points forge-check.service at check_v2.sh with a systemd drop-in
 #          (check.sh is left on disk, unchanged, as history);
 #       4. runs it once.
+#     Rerunnable: clones are kept, check_v2.sh and the drop-in are rewritten.
+#     2026-11-18 first run RED on a fresh clone: pyyaml (keystone_gate
+#     build_loop) was not in the venv and lllm's git-ignored fixture/forge.db
+#     was missing. Both are now set up here.
 #     /srv/forge/the-full-stack and the ccemk2 deploy key are left where
 #     they are and are no longer used. Removing them is for James to decide.
 #     No signing key is put on this machine.
@@ -662,7 +669,7 @@ mkdir -p $HOME_DIR/src && cd $HOME_DIR/src
 for r in $REPOS; do
   [ -d \"\$r\" ] || git clone -q https://github.com/Giblet-Legacy/\$r.git
 done
-$HOME_DIR/venv/bin/pip install -q --upgrade cryptography pytest
+$HOME_DIR/venv/bin/pip install -q --upgrade cryptography pytest pyyaml  # pyyaml: keystone_gate build_loop
 "
 
 say "2. check_v2.sh"
@@ -690,6 +697,7 @@ run() {  # run NAME DIR CMD...
   echo "Legacy check $stamp (v2: the Legacy repositories; the-full-stack is reference only)"
   for r in $REPOS; do run "pull $r" "src/$r" git pull -q --ff-only; done
   for r in $REPOS; do echo "$r $(git -C "src/$r" rev-parse --short HEAD)"; done
+  run "build lllm fixture" src/lllm python fixture/build_fixture.py  # forge.db is git-ignored; a fresh clone builds it
   for r in $REPOS; do run "tests $r" "src/$r" timeout 600 python -m pytest -q -p no:cacheprovider; done
   echo "Saboteur: threats_v3/ is empty, so no attack run yet (its own tests ran above)."
 } >"$log" 2>&1
