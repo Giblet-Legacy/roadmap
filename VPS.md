@@ -215,6 +215,26 @@ group); then run the sync from the laptop.
 - **A new group needs a new login.** Adding james to `legacy` only took
   effect after logging out and back in.
 
+## Verification v2: the Legacy, not the-full-stack (2026-11-18)
+
+James: "the forge stack was for reference only and not meant to be a
+layer involved in the legacy program." The checks above (Layout, Appendix
+A) verify the-full-stack. They are kept as history. `forge_check_v2.sh`
+(Appendix D, laptop copy in `Documents/forge-vps/`) changes the node:
+
+- the 26 Giblet-Legacy repositories that have tests are cloned side by
+  side into `/srv/forge/src`;
+- `/srv/forge/check_v2.sh` pulls each one and runs its tests every 6
+  hours, writing the same `logs/history` GREEN/RED lines;
+- a systemd drop-in (`forge-check.service.d/v2.conf`) points the timer at
+  `check_v2.sh`. `check.sh` stays on disk, unchanged;
+- `/srv/forge/the-full-stack` and the ccemk2 deploy key are left in place
+  but no longer used. Removing them is James's call.
+
+The Saboteur only runs its own tests until `threats_v3/` holds threats
+against the Legacy layers. State: **written, not yet run on the VPS.**
+On the laptop, 2026-11-18, all 26 suites pass.
+
 ## Not done yet
 
 - **Alerts.** A RED is only seen when someone looks. Next: a message to
@@ -596,4 +616,106 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+```
+
+## Appendix D: forge_check_v2.sh
+
+Written 2026-11-18. Copy it to the VPS and run it once as james.
+
+```bash
+#!/usr/bin/env bash
+# forge_check_v2.sh — turn the verification node from the-full-stack to the Legacy.
+#
+# Function:
+#     Run once, as james (sudo), on the VPS. James, 2026-11-18: "the forge
+#     stack was for reference only and not meant to be a layer involved in
+#     the legacy program." Until now /srv/forge/check.sh verified
+#     the-full-stack. This:
+#       1. clones the 26 Giblet-Legacy repositories that have tests into
+#          /srv/forge/src, side by side (the layers find each other as
+#          siblings, as on the laptop);
+#       2. writes /srv/forge/check_v2.sh: every 6 hours it pulls each repo
+#          and runs its tests; GREEN only if all pass. It writes the same
+#          logs/history and logs/latest as before;
+#       3. points forge-check.service at check_v2.sh with a systemd drop-in
+#          (check.sh is left on disk, unchanged, as history);
+#       4. runs it once.
+#     /srv/forge/the-full-stack and the ccemk2 deploy key are left where
+#     they are and are no longer used. Removing them is for James to decide.
+#     No signing key is put on this machine.
+#
+#     Usage: scp forge_check_v2.sh forge: && ssh forge 'bash forge_check_v2.sh'
+set -euo pipefail
+
+HOME_DIR=/srv/forge
+REPOS="canon-verify-layer datacube-layer envelope-layer explorer-d334-forge forge-time
+freeze-layer genesis-layer hal-layer keystone_gate ledger-layer leighton-engine-layer lllm
+mediator-layer record-layer rules-layer sc-os scp-substrate sign-layer store-layer
+substrate-layer the-echo the-legacy the-saboteur the-weaver trust-layer weight-layer"
+REPOS=$(echo $REPOS)
+say() { printf '\n== %s\n' "$*"; }
+
+say "1. the Legacy repositories"
+sudo -u forge -H bash -c "
+set -e
+mkdir -p $HOME_DIR/src && cd $HOME_DIR/src
+for r in $REPOS; do
+  [ -d \"\$r\" ] || git clone -q https://github.com/Giblet-Legacy/\$r.git
+done
+$HOME_DIR/venv/bin/pip install -q --upgrade cryptography pytest
+"
+
+say "2. check_v2.sh"
+sudo tee "$HOME_DIR/check_v2.sh" >/dev/null <<EOF
+#!/usr/bin/env bash
+# check_v2.sh — pull and test every Legacy repository; GREEN or RED. Runs as forge.
+# Replaces check.sh (the-full-stack, reference only since 2026-11-18).
+set -u
+cd $HOME_DIR
+export PATH=$HOME_DIR/venv/bin:\$PATH
+REPOS="$REPOS"
+EOF
+sudo tee -a "$HOME_DIR/check_v2.sh" >/dev/null <<'EOF'
+stamp=$(date -u +%Y%m%dT%H%M%SZ)
+log=logs/$stamp.log
+fail=0
+run() {  # run NAME DIR CMD...
+  local name=$1 dir=$2; shift 2
+  local out; out=$(mktemp)
+  if (cd "$dir" && "$@") >"$out" 2>&1; then echo "PASS  $name  $(tail -1 "$out")"
+  else echo "FAIL  $name"; tail -25 "$out" | sed 's/^/      /'; fail=1; fi
+  rm -f "$out"
+}
+{
+  echo "Legacy check $stamp (v2: the Legacy repositories; the-full-stack is reference only)"
+  for r in $REPOS; do run "pull $r" "src/$r" git pull -q --ff-only; done
+  for r in $REPOS; do echo "$r $(git -C "src/$r" rev-parse --short HEAD)"; done
+  for r in $REPOS; do run "tests $r" "src/$r" timeout 600 python -m pytest -q -p no:cacheprovider; done
+  echo "Saboteur: threats_v3/ is empty, so no attack run yet (its own tests ran above)."
+} >"$log" 2>&1
+status=GREEN; [ "$fail" = 1 ] && status=RED
+echo "$(date -u +%FT%TZ) $status $log" >> logs/history
+ln -sfn "$stamp.log" logs/latest
+find logs -name '*.log' -mtime +30 -delete
+exit "$fail"
+EOF
+sudo chown forge:forge "$HOME_DIR/check_v2.sh" && sudo chmod 755 "$HOME_DIR/check_v2.sh"
+
+say "3. point the timer at check_v2.sh"
+sudo install -d /etc/systemd/system/forge-check.service.d
+sudo tee /etc/systemd/system/forge-check.service.d/v2.conf >/dev/null <<EOF
+# v2.conf — 2026-11-18: verify the Legacy repositories, not the-full-stack.
+[Unit]
+Description=Legacy verification (every Giblet-Legacy repository's tests)
+
+[Service]
+ExecStart=
+ExecStart=$HOME_DIR/check_v2.sh
+TimeoutStartSec=3600
+EOF
+sudo systemctl daemon-reload
+
+say "4. first run"
+if sudo systemctl start forge-check.service; then echo GREEN; else echo "RED (see: sudo cat $HOME_DIR/logs/latest)"; fi
+tail -1 "$HOME_DIR/logs/history" 2>/dev/null || sudo tail -1 "$HOME_DIR/logs/history"
 ```
