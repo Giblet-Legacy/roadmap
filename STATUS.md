@@ -8,6 +8,24 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-18
+
+### the-full-stack is reference only
+
+James: "the forge stack was for reference only and not meant to be a
+layer involved in the legacy program." The "foundation" sections below
+(2026-11-14, 2026-11-15) record what was believed then. They are not
+how the Legacy stands. Ties removed today (none frozen yet; tests run on
+the laptop):
+
+- keystone_gate 1.1.0: no `forge_core` (65/65).
+- forge-time 1.0.1: no foundation agreement test (8/8).
+- mediator-layer 1.1.0: `mediator_v2.py`, no `--foundation` (18/18).
+- the-saboteur 0.4.0-dev: `saboteur_v3.py`, no default target (18/18).
+  Nothing attacks the Legacy layers yet.
+
+Not checked on this date: the S24, the VPS. Plan: `ABSORB_V2.md`.
+
 ## 2026-11-15
 
 Only the foundation and the Saboteur were checked on this date; every

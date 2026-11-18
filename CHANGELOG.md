@@ -4,6 +4,14 @@
 
 ### Good
 
+- `ABSORB_V2.md` (2026-11-18) replaces `ABSORB.md` (kept as written).
+  James: "the forge stack was for reference only and not meant to be a
+  layer involved in the legacy program." Nothing is absorbed: no
+  constitution repository, no ported hardening. The ties are removed in
+  keystone_gate, forge-time, mediator-layer and the-saboteur; the VPS
+  follows; the-full-stack is archived, with its README kept as the
+  Legacy's ancestor document. README and STATUS (new 2026-11-18 section)
+  say so.
 - `ABSORB.md` (2026-11-17): the plan for absorbing the-full-stack into the
   Legacy (James: "the-full-stack was only ever given as context to legacy's
   origins; we need to absorb the best bits and remove the rest"). His

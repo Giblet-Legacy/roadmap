@@ -7,6 +7,7 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 - [`README.md`](README.md) — this file (overview, primitive layers, dependency graph)
 - [`TIERS.md`](TIERS.md) — the four architectural tiers (Consumers, Spine, Primitives, Hardware)
 - [`STATUS.md`](STATUS.md) — dated status report (what is frozen, signed and tested)
+- [`ABSORB_V2.md`](ABSORB_V2.md) — the-full-stack is reference only: ties removed, archived as the ancestor (replaces `ABSORB.md`)
 - [`VPS.md`](VPS.md) — the VPS: the verification node and the read-only Legacy (what runs, how to update it, how to rebuild it)
 
 ## The 15 Primitive Layers (Tier 3 — COMPLETE)
@@ -31,8 +32,11 @@ The Forge Stack is a sovereign, local-first AI architecture. It is not a SaaS pr
 
 ### Added 2026-11-14 (frozen 1.0.0, signed off by James)
 
-From the foundation, [JamesTheGiblet/the-full-stack](https://github.com/JamesTheGiblet/the-full-stack)
-(`forge_core`, `master_mediator`), on James's delegation.
+Their ideas came from [JamesTheGiblet/the-full-stack](https://github.com/JamesTheGiblet/the-full-stack)
+(`forge_core`, `master_mediator`), on James's delegation. Since 2026-11-18 that
+repository is reference only, the Legacy's ancestor, never a layer or a
+dependency ([`ABSORB_V2.md`](ABSORB_V2.md)); forge-time 1.0.1 and
+mediator-layer 1.1.0 no longer touch it.
 
 | Layer | Repository | Purpose |
 | :--- | :--- | :--- |
