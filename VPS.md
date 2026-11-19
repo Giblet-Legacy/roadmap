@@ -222,8 +222,9 @@ layer involved in the legacy program." The checks above (Layout, Appendix
 A) verify the-full-stack. They are kept as history. `forge_check_v2.sh`
 (Appendix D, laptop copy in `Documents/forge-vps/`) changes the node:
 
-- the 26 Giblet-Legacy repositories that have tests are cloned side by
-  side into `/srv/forge/src`;
+- the Giblet-Legacy repositories that have tests (26, then 28 from
+  2026-11-19 with agent-layer and ai-gate) are cloned side by side into
+  `/srv/forge/src`;
 - `/srv/forge/check_v2.sh` pulls each one and runs its tests every 6
   hours, writing the same `logs/history` GREEN/RED lines;
 - a systemd drop-in (`forge-check.service.d/v2.conf`) points the timer at
@@ -647,7 +648,7 @@ Written 2026-11-18. Copy it to the VPS and run it once as james (rerunnable).
 #     stack was for reference only and not meant to be a layer involved in
 #     the legacy program." Until now /srv/forge/check.sh verified
 #     the-full-stack. This:
-#       1. clones the 26 Giblet-Legacy repositories that have tests into
+#       1. clones the 28 Giblet-Legacy repositories that have tests into
 #          /srv/forge/src, side by side (the layers find each other as
 #          siblings, as on the laptop);
 #       2. writes /srv/forge/check_v2.sh: every 6 hours it pulls each repo
@@ -657,6 +658,7 @@ Written 2026-11-18. Copy it to the VPS and run it once as james (rerunnable).
 #          (check.sh is left on disk, unchanged, as history);
 #       4. runs it once.
 #     Rerunnable: clones are kept, check_v2.sh and the drop-in are rewritten.
+#     2026-11-19: agent-layer and ai-gate added (consumer and self-layer have no tests yet).
 #     2026-11-18 first run RED on a fresh clone: pyyaml (keystone_gate
 #     build_loop) was not in the venv and lllm's git-ignored fixture/forge.db
 #     was missing. Both are now set up here.
@@ -668,7 +670,7 @@ Written 2026-11-18. Copy it to the VPS and run it once as james (rerunnable).
 set -euo pipefail
 
 HOME_DIR=/srv/forge
-REPOS="canon-verify-layer datacube-layer envelope-layer explorer-d334-forge forge-time
+REPOS="agent-layer ai-gate canon-verify-layer datacube-layer envelope-layer explorer-d334-forge forge-time
 freeze-layer genesis-layer hal-layer keystone_gate ledger-layer leighton-engine-layer lllm
 mediator-layer record-layer rules-layer sc-os scp-substrate sign-layer store-layer
 substrate-layer the-echo the-legacy the-saboteur the-weaver trust-layer weight-layer"
