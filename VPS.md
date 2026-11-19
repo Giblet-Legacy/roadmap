@@ -236,7 +236,7 @@ against the Legacy layers. First run on the VPS, 2026-11-18: RED, 24 of 26 suite
 failures were fresh-clone setup gaps, not Legacy faults: keystone_gate's
 build_loop needs `pyyaml`, and lllm's `fixture/forge.db` is git-ignored
 and has to be built (`fixture/build_fixture.py`). The script now does
-both; rerun it.
+both; rerun it. 2026-11-19: GREEN on all 26 suites after the morning's pushes (Cockpit 1.8.0, lllm 0.1.2, the agent files).
 
 ## run-latest v2: the Legacy boot by version (2026-11-18)
 
@@ -249,7 +249,7 @@ replaces it. It runs the boot whose header `Version:` is the highest that
 is not above the-legacy's `VERSION` file, and VERSION only advances on a
 freeze. The old script stays as `/srv/legacy/run-latest.v1`. Checked on
 the laptop against the real files: VERSION 1.11.0 picks `boot_v1_11.py`,
-and 1.10.0 picks `boot_v7.py`. State: **written, not yet run on the VPS.**
+and 1.10.0 picks `boot_v7.py`. State: **run on the VPS 2026-11-19; it serves `boot_v1_11.py` (the Legacy 1.11.0).**
 
 ## Not done yet
 

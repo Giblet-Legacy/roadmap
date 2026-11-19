@@ -8,6 +8,21 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-19
+
+- **VPS:** run-latest v2 is in place, and the read-only Legacy serves
+  1.11.0 (`boot_v1_11.py`). Check v2 is GREEN on all 26 Legacy suites,
+  confirmed by James.
+- **Agents:** every repository has `agent_<repo>.py` (agent-layer
+  0.1.0-dev, 13/13). `python agent-layer/agents.py --no-tests` reports
+  31 agents: 26 ok and 4 warn (the four new repositories have no GitHub
+  remote yet: ai-gate, consumer, self-layer, agent-layer), with none
+  failing. keystone's old digest is a valid old-format signature, not a
+  forgery.
+- **lllm 0.1.2:** its VERSION now records the 2026-11-13 freezes.
+- **Designed, not built:** ai-gate (spec draft 4), consumer (spec draft
+  2; story, trading and game designs), P18 Self.
+
 ## 2026-11-18 (later): frozen, and files named for their version
 
 James: "freeze", and "if you look at all the _v versions we have there
