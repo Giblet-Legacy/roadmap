@@ -232,8 +232,11 @@ A) verify the-full-stack. They are kept as history. `forge_check_v2.sh`
 - `/srv/forge/the-full-stack` and the ccemk2 deploy key are left in place
   but no longer used. Removing them is James's call.
 
-The Saboteur only runs its own tests until `threats_v0_4/` holds threats
-against the Legacy layers. First run on the VPS, 2026-11-18: RED, 24 of 26 suites green. Both
+The Saboteur runs only its own tests here. From 1.0.0 (2026-11-20) that
+means 65 tests, and `pytest.ini` keeps `archive/` out. The 1000 attacks
+take most of an hour, so they do not run in the check. Rotation (250
+attacks per 6-hour slot, all 1000 a day, plus a daily report) is planned
+as the Saboteur 1.1.0 (the-saboteur CONSOLIDATION_V1.md §8). First run on the VPS, 2026-11-18: RED, 24 of 26 suites green. Both
 failures were fresh-clone setup gaps, not Legacy faults: keystone_gate's
 build_loop needs `pyyaml`, and lllm's `fixture/forge.db` is git-ignored
 and has to be built (`fixture/build_fixture.py`). The script now does

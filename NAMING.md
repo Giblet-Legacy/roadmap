@@ -69,6 +69,29 @@ From 1.11.0 the names follow the rule (`legacy_v1_11.py`, `boot_v1_11.py`,
 `boot_v1_12.py`, `SPEC_V1_12.md`, `projection_v1_12.html`), also archived.
 Old suites carried into 2.0.0 are `<suite>_at_v2.py` (`test_legacy_v4_at_v2.py`).
 
+### the-saboteur (in line from 1.0.0)
+
+The Saboteur came into line at its 1.0.0 consolidation (2026-11-20;
+the-saboteur CONSOLIDATION_V1.md):
+
+- `saboteur_v1.py`, `mutations_v1.py`, `harness_guard_v1.py`,
+  `build_fixture_v1.py`, `fixture_v1/`, `threats_v1/` and `SPEC_V1.md` are
+  1.0.0.
+- Every older file is in `archive/0.9.0/`, byte-identical, and at the tag
+  `v0.9.0`.
+- Old suites carried into 1.0.0 are `<suite>_at_v1.py`.
+
+The old names that did not say their version:
+
+| File | Version |
+|---|---|
+| `saboteur.py`, `harness_guard.py`, `mutations.py`, `SPEC.md` | 0.2.0, then the CHANGELOG's original `[v1.0.0]` ("12/12 PASS", withdrawn by 0.3.0). That label came before the 0.x numbering; 1.0.0 now names the consolidation. |
+| `saboteur_v2.py`, `harness_guard_v2.py`, `mutations_v2.py`, `SPEC_V2.md`, `threats_v2/` | 0.3.0–0.3.3 |
+
+From 0.4.0 the names follow the rule (`saboteur_v0_4.py` to
+`saboteur_v0_9.py`, `threats_v0_4/` to `threats_v0_9/`). The one exception
+is `fixture_v0_5/`, which 0.5.0 to 0.9.0 all used.
+
 ### Primitives and other consumers
 
 | Repository | File | Version |
@@ -80,11 +103,11 @@ Old suites carried into 2.0.0 are `<suite>_at_v2.py` (`test_legacy_v4_at_v2.py`)
 | weight-layer (P10) | `weight_v2.py`, `SPEC_V2.md` | 1.1.0 |
 | sc-os | `peer_v2.py`, `SPEC_V2.md` | 0.2.0 |
 | | `SPEC_V3.md` (nerves.py) | 0.3.0 |
-| the-saboteur | `saboteur_v2.py`, `harness_guard_v2.py`, `mutations_v2.py`, `SPEC_V2.md`, `threats_v2/` | 0.3.0–0.3.3 |
 
 Every other repository already follows the rule: canon-verify, datacube,
 envelope, freeze, genesis, ledger, record, rules, sign, store, substrate,
-scp-substrate and the-legacy from 2.0.0 (`_vX` for X.0.0), and the Cockpit,
+scp-substrate, the-legacy from 2.0.0 and the-saboteur from 1.0.0 (`_vX` for
+X.0.0), and the Cockpit,
 the Weaver, the Echo, lllm and forge-time (`_vX_Y`).
 
 ## Renamed before their freeze (2026-11-18)

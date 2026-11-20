@@ -22,6 +22,28 @@ Function:
   on the laptop). It is not yet refreshed on the VPS: James runs
   `legacy-refresh`.
 - **Not checked on this date:** the S24 (James: no S24 run for 2.0.0).
+- **the-saboteur 0.5.0 to 0.9.0 frozen:**
+  - 1000 attacks on the Legacy's own layers, against a fixture signed
+    with throwaway keys;
+  - a run lock (0.5.1);
+  - substitution attacks (0.8.0);
+  - every known gap class mapped (0.9.0).
+
+  154 are red, in 7 gap classes: rollback, duplicate keys,
+  self-certifying rows, deleted rows, unsigned columns, non-canonical
+  bytes and substitution. Each fix is a new layer, when James decides.
+  No layer raised on any attack. Tagged `v0.9.0`.
+- **the-saboteur 1.0.0 frozen:** the consolidation of 0.9.0
+  (CONSOLIDATION_V1.md, SPEC_V1.md).
+  - One runner, one mutation module and one guard replace a six-layer
+    chain.
+  - 0.9.0 is byte-identical in `archive/0.9.0/`.
+  - 65/65.
+  - Gate: 0.9.0 and 1.0.0 each ran all 1000 attacks, PASS 846 / FAIL
+    154. All 1000 verdicts are identical.
+  - Tagged `v1.0.0`, and merged into main in one commit.
+  - The VPS check runs its 65 tests. Rotation (250 attacks every 6 hours,
+    a daily report) is planned as 1.1.0.
 
 ## 2026-11-19
 
