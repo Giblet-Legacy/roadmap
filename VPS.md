@@ -252,12 +252,20 @@ freeze. The old script stays as `/srv/legacy/run-latest.v1`. Checked on
 the laptop against the real files: VERSION 1.11.0 picks `boot_v1_11.py`,
 and 1.10.0 picks `boot_v7.py`. State: **run on the VPS 2026-11-19; it serves `boot_v1_11.py` (the Legacy 1.11.0).**
 
+2026-11-20: the Legacy is 2.0.0 (the consolidation; the-legacy CONSOLIDATION_V2.md).
+The old boots are in `archive/1.12.0/`, which run-latest does not look in. At the root
+are `boot_v2.py` (header `Version:  2.0.0 (frozen 2026-11-20)`) and VERSION 2.0.0;
+run-latest v2, simulated on the laptop against those files, picks `boot_v2.py`.
+boot_v2 starts ai-gate only if `/srv/legacy/src/ai-gate` exists. Without it, the page's
+AI card says the gate is not running, and every write is refused there anyway.
+State: **pushed; the VPS serves it after `sudo legacy-refresh --force`.** To return to
+1.12.0, revert the-legacy's merge commit `fbee7e4` and refresh.
+
 ## Not done yet
 
 - **Alerts.** A RED is only seen when someone looks. Next: a message to
   the phone on RED (Telegram or ntfy).
 - **More on the box:** ccemk2 under PM2.
-- **Freeze** legacy_v11 / boot_v6 once used on the phone.
 
 ## Appendix A: setup_forge_check.sh
 

@@ -44,7 +44,15 @@ A versioned file is named after the version it ships.
 Until each repository is consolidated, these names do not say their
 version. The version each one shipped:
 
-### the-legacy
+### the-legacy (in line from 2.0.0)
+
+The Legacy came into line at its 2.0.0 consolidation (2026-11-20; the-legacy
+CONSOLIDATION_V2.md): `legacy_v2.py`, `boot_v2.py`, `SPEC_V2.md` and
+`static/projection_v2.html` are 2.0.0. Every file below is now in
+`archive/1.12.0/`, byte-identical, and at the tag `v1.12.0`. Four of the
+old counter names (`legacy_v2.py`, `boot_v2.py`, `SPEC_V2.md`,
+`test_legacy_v2.py`) are reused at the root by 2.0.0; their 0.1.2 and 1.5.0
+bytes are the archived ones.
 
 | File | Version | | File | Version |
 |---|---|---|---|---|
@@ -58,8 +66,8 @@ version. The version each one shipped:
 
 From 1.11.0 the names follow the rule (`legacy_v1_11.py`, `boot_v1_11.py`,
 `SPEC_V1_11.md`, `projection_v1_11.html`; 1.12.0 is `legacy_v1_12.py`,
-`boot_v1_12.py`, `SPEC_V1_12.md`, `projection_v1_12.html`). The Legacy is already due its
-2.0.0 consolidation.
+`boot_v1_12.py`, `SPEC_V1_12.md`, `projection_v1_12.html`), also archived.
+Old suites carried into 2.0.0 are `<suite>_at_v2.py` (`test_legacy_v4_at_v2.py`).
 
 ### Primitives and other consumers
 
@@ -76,8 +84,8 @@ From 1.11.0 the names follow the rule (`legacy_v1_11.py`, `boot_v1_11.py`,
 
 Every other repository already follows the rule: canon-verify, datacube,
 envelope, freeze, genesis, ledger, record, rules, sign, store, substrate,
-scp-substrate (`_vX` for X.0.0), and the Cockpit, the Weaver, the Echo,
-lllm and forge-time (`_vX_Y`).
+scp-substrate and the-legacy from 2.0.0 (`_vX` for X.0.0), and the Cockpit,
+the Weaver, the Echo, lllm and forge-time (`_vX_Y`).
 
 ## Renamed before their freeze (2026-11-18)
 

@@ -8,6 +8,21 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-20
+
+- **the-legacy 1.12.0 frozen** (the AI on the page through ai-gate; Claims
+  merged into Ask), 88/88, tagged `v1.12.0`.
+- **the-legacy 2.0.0 frozen**: the consolidation of 1.12.0
+  (CONSOLIDATION_V2.md, SPEC_V2.md). One module, one boot and one page
+  replace a fourteen-layer chain. 1.12.0 is byte-identical in
+  `archive/1.12.0/`. 59/59. Run side by side with 1.12.0 against a copy of
+  the real ~/.forge: 51 checks, 0 differences. Tagged `v2.0.0`. Merged into
+  main as one merge commit, so reverting it returns 1.12.0.
+- **VPS:** run-latest v2 picks `boot_v2.py` against the real files (checked
+  on the laptop). It is not yet refreshed on the VPS: James runs
+  `legacy-refresh`.
+- **Not checked on this date:** the S24 (James: no S24 run for 2.0.0).
+
 ## 2026-11-19
 
 - **VPS:** run-latest v2 is in place, and the read-only Legacy serves
