@@ -57,7 +57,8 @@ version. The version each one shipped:
 | | | | `legacy_v12.py`, `boot_v7.py`, `SPEC_V14.md`, `projection_v10.html` | 1.10.0 |
 
 From 1.11.0 the names follow the rule (`legacy_v1_11.py`, `boot_v1_11.py`,
-`SPEC_V1_11.md`, `projection_v1_11.html`). The Legacy is already due its
+`SPEC_V1_11.md`, `projection_v1_11.html`; 1.12.0 is `legacy_v1_12.py`,
+`boot_v1_12.py`, `SPEC_V1_12.md`, `projection_v1_12.html`). The Legacy is already due its
 2.0.0 consolidation.
 
 ### Primitives and other consumers
