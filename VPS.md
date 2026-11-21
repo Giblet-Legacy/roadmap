@@ -805,3 +805,67 @@ sudo legacy-refresh --force
 sleep 5
 sudo journalctl -u legacy-field -n 30 --no-pager | grep -m1 "run-latest:" || sudo systemctl status legacy-field --no-pager | head -5
 ```
+
+## Appendix F: forge_check_v3.sh
+
+Written 2026-11-20 for the Saboteur 1.1.0 rotation (the-saboteur
+SPEC_V1_1.md). Run it only after 1.1.0 is frozen and merged into main,
+because the VPS pulls main. Copy it to the VPS and run it once as james.
+It can be rerun.
+
+```bash
+#!/usr/bin/env bash
+# forge_check_v3.sh — add the Saboteur's rotation to the 6-hourly Legacy check.
+#
+# Function:
+#     Run once, as james (sudo), on the VPS. James, 2026-11-20: "start
+#     rotation" (250 attacks every 6 hours, all 1000 a day, a daily
+#     report). check_v2.sh only ran each repository's tests. This:
+#       1. writes /srv/forge/check_v3.sh: check_v2.sh with its Saboteur
+#          placeholder line replaced by
+#            - one rotation slot (the-saboteur saboteur_v1_1.py; the slot
+#              comes from the UTC hour, and the results go to
+#              /srv/forge/saboteur-results);
+#            - in the first run after 00:00 UTC, yesterday's report
+#              (saboteur_report_v1_1.py --write), if yesterday has results.
+#          A slot or report that is RED (a new problem, any UGLY or SKIP,
+#          a known gap that starts passing, or a missing slot) makes the
+#          check RED;
+#       2. points forge-check.service at check_v3.sh with a new drop-in
+#          (v3.conf). The service timeout goes to 7200 s, to make room for
+#          the slot. check_v2.sh and v2.conf stay on disk, unchanged;
+#       3. runs it once.
+#     No signing key is used: the fixture's keys are throwaway, public only.
+#
+#     Usage: scp forge_check_v3.sh forge: && ssh -t forge 'bash forge_check_v3.sh'
+set -euo pipefail
+
+HOME_DIR=/srv/forge
+say() { printf '\n== %s\n' "$*"; }
+
+say "1. check_v3.sh"
+grep -q 'Saboteur: threats_v0_4/ is empty' "$HOME_DIR/check_v2.sh" || { echo "check_v2.sh is not the expected one; stopping"; exit 1; }
+sudo -u forge mkdir -p "$HOME_DIR/saboteur-results" "$HOME_DIR/saboteur-scratch"
+sudo sed -e 's#^\(\# check_v2.sh\) — pull and test every Legacy repository; GREEN or RED. Runs as forge.#\# check_v3.sh — check_v2.sh plus the Saboteur rotation (one slot each run, the daily report). Runs as forge.#' \
+  -e '/Saboteur: threats_v0_4\/ is empty/c\
+  run "saboteur rotation" src/the-saboteur timeout 5400 python saboteur_v1_1.py --results '"$HOME_DIR"'/saboteur-results --parent '"$HOME_DIR"'/saboteur-scratch\
+  y=$(date -u -d yesterday +%F); if [ "$(date -u +%H)" -lt 6 ] \&\& [ -d '"$HOME_DIR"'/saboteur-results/$y ]; then run "saboteur report $y" src/the-saboteur python saboteur_report_v1_1.py --day $y --results '"$HOME_DIR"'/saboteur-results --write; fi' \
+  "$HOME_DIR/check_v2.sh" | sudo tee "$HOME_DIR/check_v3.sh" >/dev/null
+sudo chown forge:forge "$HOME_DIR/check_v3.sh" && sudo chmod 755 "$HOME_DIR/check_v3.sh"
+grep -n 'saboteur' "$HOME_DIR/check_v3.sh"
+
+say "2. point the timer at check_v3.sh"
+sudo tee /etc/systemd/system/forge-check.service.d/v3.conf >/dev/null <<EOF
+# v3.conf — 2026-11-20: the Legacy check plus the Saboteur rotation (check_v3.sh).
+[Service]
+ExecStart=
+ExecStart=$HOME_DIR/check_v3.sh
+TimeoutStartSec=7200
+EOF
+sudo systemctl daemon-reload
+
+say "3. first run"
+if sudo systemctl start forge-check.service; then echo GREEN; else echo "RED (see: sudo cat $HOME_DIR/logs/latest)"; fi
+tail -1 "$HOME_DIR/logs/history" 2>/dev/null || sudo tail -1 "$HOME_DIR/logs/history"
+ls "$HOME_DIR/saboteur-results/"* 2>/dev/null || sudo ls -R "$HOME_DIR/saboteur-results"
+```

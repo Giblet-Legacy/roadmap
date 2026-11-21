@@ -8,6 +8,23 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-21
+
+- **the-saboteur 1.1.0 frozen** (rotation; SPEC_V1_1.md), 76/76, tagged
+  `v1.1.0`, merged into main in one commit.
+  - Each 6-hour UTC slot runs 250 of the 1000 attacks, interleaved, so all
+    1000 run each day.
+  - A slot is RED only for a new problem, any UGLY or SKIP, or one of the
+    154 known gaps starting to pass.
+  - A daily report covers the slots, coverage, new and healed, and
+    changes since the day before.
+  - First real slot (slot 3, 2026-11-20 23:44 UTC): 250 attacks in 4
+    minutes, PASS 212 / FAIL 38 (all known), GREEN.
+- **VPS:** not yet rotating. James runs `forge_check_v3.sh` (VPS.md
+  Appendix F), which adds one slot to every 6-hourly check and yesterday's
+  report after midnight.
+- **Not checked on this date:** the S24; the VPS run of check_v3.
+
 ## 2026-11-20
 
 - **the-legacy 1.12.0 frozen** (the AI on the page through ai-gate; Claims
