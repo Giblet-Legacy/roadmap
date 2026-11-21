@@ -836,6 +836,9 @@ It can be rerun.
 #          the slot. check_v2.sh and v2.conf stay on disk, unchanged;
 #       3. runs it once.
 #     No signing key is used: the fixture's keys are throwaway, public only.
+#     2026-11-21: the first try stopped at step 1 ("grep: /srv/forge/check_v2.sh:
+#     Permission denied"), because /srv/forge is forge's and the checks read it
+#     without sudo. They use sudo now. Nothing had been changed.
 #
 #     Usage: scp forge_check_v3.sh forge: && ssh -t forge 'bash forge_check_v3.sh'
 set -euo pipefail
@@ -844,7 +847,7 @@ HOME_DIR=/srv/forge
 say() { printf '\n== %s\n' "$*"; }
 
 say "1. check_v3.sh"
-grep -q 'Saboteur: threats_v0_4/ is empty' "$HOME_DIR/check_v2.sh" || { echo "check_v2.sh is not the expected one; stopping"; exit 1; }
+sudo grep -q 'Saboteur: threats_v0_4/ is empty' "$HOME_DIR/check_v2.sh" || { echo "check_v2.sh is not the expected one; stopping"; exit 1; }
 sudo -u forge mkdir -p "$HOME_DIR/saboteur-results" "$HOME_DIR/saboteur-scratch"
 sudo sed -e 's#^\(\# check_v2.sh\) — pull and test every Legacy repository; GREEN or RED. Runs as forge.#\# check_v3.sh — check_v2.sh plus the Saboteur rotation (one slot each run, the daily report). Runs as forge.#' \
   -e '/Saboteur: threats_v0_4\/ is empty/c\
@@ -852,7 +855,7 @@ sudo sed -e 's#^\(\# check_v2.sh\) — pull and test every Legacy repository; GR
   y=$(date -u -d yesterday +%F); if [ "$(date -u +%H)" -lt 6 ] \&\& [ -d '"$HOME_DIR"'/saboteur-results/$y ]; then run "saboteur report $y" src/the-saboteur python saboteur_report_v1_1.py --day $y --results '"$HOME_DIR"'/saboteur-results --write; fi' \
   "$HOME_DIR/check_v2.sh" | sudo tee "$HOME_DIR/check_v3.sh" >/dev/null
 sudo chown forge:forge "$HOME_DIR/check_v3.sh" && sudo chmod 755 "$HOME_DIR/check_v3.sh"
-grep -n 'saboteur' "$HOME_DIR/check_v3.sh"
+sudo grep -n 'saboteur' "$HOME_DIR/check_v3.sh"
 
 say "2. point the timer at check_v3.sh"
 sudo tee /etc/systemd/system/forge-check.service.d/v3.conf >/dev/null <<EOF
