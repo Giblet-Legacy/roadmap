@@ -43,6 +43,7 @@ mediator-layer 1.1.0 no longer touch it.
 | :--- | :--- | :--- |
 | **P16** | [`forge-time`](https://github.com/Giblet-Legacy/forge-time) | The one signed timestamp format (ISO 8601 UTC, `Z`) and the scp_id rule, whole-string |
 | **P17** | [`mediator-layer`](https://github.com/Giblet-Legacy/mediator-layer) | Master Mediator: field maturity from consumer digests; unsigned spine-update proposals for HAL |
+| **P19** | [`validation-layer`](https://github.com/Giblet-Legacy/validation-layer) | Validation: the architect's questions before a layer or entity is built (the James Checklist's method), scored the same way every time; James's own rules stay private |
 
 Each carries a primitive capsule (`sc/p16-time-v1.sc.json`,
 `sc/p17-mediator-v1.sc.json`) pinning its SPEC, sealed by James on 2026-11-14
@@ -77,6 +78,7 @@ never rewrite). New code imports the module in the middle column.
 | P15 | `hal_v2` | 1.1.0 |
 | P16 | `forge_time` | frozen 1.0.0 (2026-11-14) |
 | P17 | `mediator` | frozen 1.0.0 (2026-11-14) |
+| P19 | `validate` | frozen 0.1.0 (2026-11-22), carrying checklist 2.2.0 |
 
 P1–P15: all frozen on James's sign-off ("freeze all", 2026-11-13). Confirmed on
 the S24 by James the same day.

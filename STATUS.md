@@ -8,6 +8,31 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-22
+
+- **P19 Validation 0.1.0 frozen and published**
+  ([Giblet-Legacy/validation-layer](https://github.com/Giblet-Legacy/validation-layer),
+  tag `v0.1.0`). The James Checklist's method joins the stack.
+  - **The checklist:** frozen at 2.2.0 first, in James's private folder.
+  - **The engine:** scores a run exactly as the checklist page does,
+    proven by running the page's own script under Node on 12 synthetic
+    runs. 21/21 on the laptop; 8 run anywhere.
+  - **Private by design:** James's rules, R9 guard words and runs stay in
+    `~/.forge/validation/`. Before the first push, the history was checked
+    against his real guard words.
+  - **Runs 0001 and 0002**, on the layer and on its next version: 65/100
+    each, capped. Nobody outside James has checked them yet (F9).
+- **P19 0.2.0 agreed, not built:** validation over a lifetime.
+  - Each layer's and entity's reasons become claims, with λ through P14
+    and a decay per kind.
+  - A claim that goes unknown or doubted is asked about in the daily
+    report and the Field.
+  - James answers with a signed seal.
+  - **Waiting on James:** the first 5 layers to claim, and run 0002's
+    verdict.
+- **Not checked on this date:** the S24; the VPS (validation-layer is not
+  yet in its repo list).
+
 ## 2026-11-21
 
 - **the-saboteur 1.1.0 frozen** (rotation; SPEC_V1_1.md), 76/76, tagged

@@ -31,6 +31,7 @@ The immutable physics of the stack. 15 layers, over 700 passing tests.
 ### Tier 3 additions (2026-11-14, frozen 1.0.0)
 *   **P16 Time (`forge-time`):** the one signed timestamp format and the scp_id rule, from the foundation's `forge_core`.
 *   **P17 Mediator (`mediator-layer`):** the foundation's Master Mediator. Reads consumer digests, tiers each field's maturity, and writes unsigned spine-update proposals for HAL. It is how the stack grows on its own while every change stays a human decision.
+*   **P19 Validation (`validation-layer`):** the architect's questions before anything is built: why, who for, what it's worth, how it fails, what it replaces, and who else has checked it. A deterministic engine scores a run the same way every time (viability, flags, the verdict's needs). 0.2.0, agreed, keeps asking for a layer's or entity's whole life, with λ from P14. It advises; HAL records James's decisions.
 
 ## Tier 4: Physical Environment
 The hardware the stack runs on.
