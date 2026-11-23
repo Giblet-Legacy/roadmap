@@ -8,6 +8,43 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-22 (later)
+
+- **The Legacy 2.1.0 frozen and published:** first-time guidance and
+  Advanced navigation; tag `v2.1.0`, commit `f3e005d`. The frozen 2.0.0
+  routes and files remain available. 63/63 tests passed on the laptop;
+  desktop and mobile-width browser navigation was checked.
+- **Not checked:** 2.1.0 on the S24 or VPS; a real Gemini request.
+
+## 2026-11-23
+
+- **The James Checklist 2.3.0 frozen** (private), and **P19 Validation
+  0.1.1 frozen and pushed** (tag `v0.1.1`). A red team's findings must now
+  be decided before they lift the score.
+  - In 2.2.0, logging any review took a run from 65 to 100, though the
+    reviewer would build none of them as planned.
+  - Under 2.3.0, runs 0001 and 0002 show 65 (findings undecided), and run
+    0003 shows 100 (decided and parked).
+  - Tests: 43/43 on the laptop.
+- **Checkpoints** (PROPOSAL_CHECKPOINTS.md): agreed, then red-teamed as
+  run 0003.
+  - **The finding:** the VPS witness is not independent of the laptop,
+    which already syncs whole databases to it and holds the SSH path into
+    it.
+  - **James's decision (§9):** three witnesses (VPS, S24, GitHub); each
+    checks signatures; behind any witness, or a fork, fails; unwitnessed
+    for more than 24 hours is STALE.
+  - **Run 0003 is parked** until §9 is designed in full and red-teamed
+    again. P20 is not built.
+- **Gap-fix drafts** (another session; uncommitted): ledger_v3,
+  canon_verify_v3, store_v3, record_v3 and substrate_v5. They wait on
+  checkpoints.
+  - `store-layer/migrate_v3.py` rewrites 401 of 630 live store records
+    into canonical form. Hashes are unchanged. It was rehearsed on a copy;
+    the live store is untouched. James runs it.
+- **Not checked on this date:** the S24; the VPS (James's
+  forge_check_v2/v3 rerun is still due).
+
 ## 2026-11-22
 
 - **P19 Validation 0.1.0 frozen and published**
