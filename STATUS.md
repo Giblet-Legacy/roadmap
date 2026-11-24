@@ -8,6 +8,32 @@ Function:
     that date; anything not checked is marked as such. A new date gets a
     new section at the top, never an edit to an old one.
 
+## 2026-11-24
+
+- **P19 Validation 0.2.0-dev, first slice pushed** (validation-layer
+  `407494d`, `c86665e`, `4e19c75`). `relevance_v0_2.py` is a dry run. It
+  builds the import graph from five real entry points and computes λ per
+  claim through Leighton V3. Eleven layers have confirmed claims.
+  - Holds: PURPOSE for sign, store, canon-verify and the Saboteur.
+  - Doubted: CONFORMS for sign, store and canon-verify, from the
+    Saboteur's known gaps.
+  - Unknown, and asked: the rest. Tests 54/54.
+- **James's first answers** (recorded, unsigned; not evidence):
+  - **retire:** forge-gate and seed;
+  - **keep:** keystone_gate, forge-time and mediator-layer;
+  - **wait:** self-layer and consumer.
+- **Retired:**
+  - **forge-gate:** moved off the laptop workspace to
+    `Documents/Giblets_Legacy_retired/forge-gate`, with its git history
+    and an uncommitted README edit that is not this session's, kept as
+    it was. The GitHub repo is **not archived yet**: James runs
+    `gh repo archive Giblet-Legacy/forge-gate`. The S24 still has a
+    clone.
+  - **seed:** moved to `Documents/Giblets_Legacy_retired/seed`, whole,
+    including its identity material. It was never a git repository and
+    was never pushed.
+- **Not checked on this date:** the S24 and the VPS.
+
 ## 2026-11-22 (later)
 
 - **The Legacy 2.1.0 frozen and published:** first-time guidance and
